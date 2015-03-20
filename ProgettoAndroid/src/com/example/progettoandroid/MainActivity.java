@@ -33,4 +33,3 @@ public class MainActivity extends ActionBarActivity {
 	}
 }
 
-// 1,2,3, provaaaa ho scoreggiato ancora, ma shhhh
