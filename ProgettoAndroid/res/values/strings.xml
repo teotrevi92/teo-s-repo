@@ -4,5 +4,21 @@
     <string name="app_name">ProgettoAndroid</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <string name="drawer_open">Open Navigation Drawer</string>
+    <string name="drawer_close">Close Navigation Drawer</string>
+     
+    
+    
+    
+    
+    <string-array name="prova">
+        <item >Home</item>
+        <item >Profilo</item>
+        <item >Impostazioni</item>
+        <item >Sessioni</item>
+        <item >Sessione Attuale</item>
+        <item >About</item>
+    </string-array> 
 
 </resources>
