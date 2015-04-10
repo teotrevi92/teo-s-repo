@@ -44,15 +44,23 @@
         android:contentDescription="@string/pause"
         android:src="@drawable/pause" />
     
-    <TextView
-        android:id="@+id/timerV"
+    <ImageButton
+        android:id="@+id/stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="37dp"
-        android:text="@string/timer"
+        android:layout_gravity="center|bottom"
+        android:background="@drawable/stop"
+        android:contentDescription="@string/stop"
+        android:src="@drawable/stop" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|bottom"
+        android:text="@string/cron"
         android:textColor="#FFFFFF"
-        android:layout_marginTop="50dp"
-        android:textSize="40sp" />
+        android:textSize="140sp" />
 
 </LinearLayout>

@@ -3,36 +3,37 @@ package com.example.progettoandroid;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
 	private ImageButton play;
-	//prova
 	private ImageButton pause;
-	private static TextView timerValue;
-	private long startTime = 0L;
-	private Handler customHandler = new Handler();
-	long timeInMilliseconds = 0L;
-	long timeSwapBuff = 0L;
-	long updatedTime = 0L;
-	//fine prova
+	private ImageButton stop;
+	private Chronometer crono;
+	long timeWhenStopped = 0;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//prendo il pulsante con il suo id
+		//prendo i pulsanti con i loro id
 		
 		play = (ImageButton)findViewById(R.id.play);
 		pause = (ImageButton)findViewById(R.id.paus);
+		stop = (ImageButton)findViewById(R.id.stop);
+		crono = (Chronometer)findViewById(R.id.chronometer);
+		
+		
 		play.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -43,8 +44,10 @@ public class MainActivity extends ActionBarActivity {
 				//Intent invio = new Intent(MainActivity.this, Session_Activity.class);
 				//startActivity(invio);
 				
-				startTime = SystemClock.uptimeMillis();
-				customHandler.postDelayed(updateTimerThread, 0);
+				//riparto dove ero rimasto
+				crono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+				crono.start();
+				
 				
 			}
 		});
@@ -55,15 +58,30 @@ public class MainActivity extends ActionBarActivity {
 				public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				// definisco l'intenzione di aprire l'Activity Session_Activity 
-				//Intent invio = new Intent(MainActivity.this, Session_Activity.class);
-				//startActivity(invio);
+				//memorizzo dove sono rimasto
+				timeWhenStopped = crono.getBase() - SystemClock.elapsedRealtime();
+				crono.stop();
 				
-				timeSwapBuff += timeInMilliseconds;
-				customHandler.removeCallbacks(updateTimerThread);
 				
 			}
 		});
+		
+		
+		stop.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+				public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				//azzero e fermo
+				crono.setBase(SystemClock.elapsedRealtime());
+				crono.stop();
+				timeWhenStopped = 0;
+				
+			}
+		});
+		
+		
 		
 		
 		
@@ -89,25 +107,8 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	
-	private Runnable updateTimerThread = new Runnable() {
-		
-		public void run() {
-			timerValue = (TextView)findViewById(R.id.timerV);
-			timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-			
-			updatedTime = timeSwapBuff + timeInMilliseconds;
+	
 
-			int secs = (int) (updatedTime / 1000);
-			int mins = secs / 60;
-			secs = secs % 60;
-			int milliseconds = (int) (updatedTime % 1000);
-			timerValue.setText("" + mins + ":"
-					+ String.format("%02d", secs) + ":"
-					+ String.format("%02d", milliseconds));
-			customHandler.postDelayed(this, 0);
-		}
-
-	};
 	
 	
 
