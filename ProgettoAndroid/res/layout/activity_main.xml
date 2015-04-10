@@ -34,6 +34,16 @@
         android:contentDescription="@string/play"
         android:focusableInTouchMode="true"
         android:src="@drawable/play" />
+    
+    <ImageButton
+        android:id="@+id/paus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:background="@drawable/pause"
+        android:contentDescription="@string/pause"
+        android:src="@drawable/pause" />
+    
     <TextView
         android:id="@+id/timerV"
         android:layout_width="wrap_content"

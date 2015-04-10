@@ -15,6 +15,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private ImageButton play;
 	//prova
+	private ImageButton pause;
 	private static TextView timerValue;
 	private long startTime = 0L;
 	private Handler customHandler = new Handler();
@@ -31,6 +32,7 @@ public class MainActivity extends ActionBarActivity {
 		//prendo il pulsante con il suo id
 		
 		play = (ImageButton)findViewById(R.id.play);
+		pause = (ImageButton)findViewById(R.id.paus);
 		play.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -46,6 +48,23 @@ public class MainActivity extends ActionBarActivity {
 				
 			}
 		});
+		
+		pause.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+				public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				// definisco l'intenzione di aprire l'Activity Session_Activity 
+				//Intent invio = new Intent(MainActivity.this, Session_Activity.class);
+				//startActivity(invio);
+				
+				timeSwapBuff += timeInMilliseconds;
+				customHandler.removeCallbacks(updateTimerThread);
+				
+			}
+		});
+		
 		
 		
 	}
