@@ -12,7 +12,7 @@
     
     
     
-    <string-array name="prova">
+    <string-array name="menu_drawer">
         <item >Home</item>
         <item >Profilo</item>
         <item >Impostazioni</item>

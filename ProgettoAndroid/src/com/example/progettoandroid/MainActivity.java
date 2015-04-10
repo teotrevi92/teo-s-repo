@@ -1,5 +1,6 @@
 package com.example.progettoandroid;
 
+import android.R.color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.ActionBarDrawerToggle;
 
@@ -19,7 +21,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	
 	private DrawerLayout drawerLayout;
 	private ListView listView;
-	private String[] prova;
+	private String[] menu_drawer;
 	private ActionBarDrawerToggle drawerListner;
 	
 
@@ -27,12 +29,13 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		prova = getResources().getStringArray(R.array.prova);
+		menu_drawer = getResources().getStringArray(R.array.menu_drawer);
 		drawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
+		
 		listView=(ListView) findViewById(R.id.drawerList);
-		listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,prova));
+		listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,menu_drawer));
 		listView.setOnItemClickListener(this); 
-		drawerListner = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.drawer_icon, R.string.drawer_open, R.string.drawer_close){
+		drawerListner = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.menu, R.string.drawer_open, R.string.drawer_close){
 			@Override
 			// definisco cosa deve succedere quando apro il drawer: in questo caso mi segnala tramite Toast che l'ho aperto
 			public void onDrawerOpened(View drawerView) {
@@ -84,7 +87,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		// definisco tutte le operazioni che andrò a fare nel tasto menù
+		// definisco tutte le operazioni che andrï¿½ a fare nel tasto menï¿½
 		if(drawerListner.onOptionsItemSelected(item))
 		{
 			return true;
@@ -101,7 +104,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		// Cosa Voglio vedere quando premo sui vari tasti?
-				Toast.makeText(this, prova[position] + " è stato premuto", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, menu_drawer[position] + " ï¿½ stato premuto", Toast.LENGTH_LONG).show();
 		
 	}
 }
