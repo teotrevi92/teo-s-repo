@@ -1,10 +1,11 @@
 package com.example.progettoandroid;
 
-import android.R.color;
+
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -110,17 +111,18 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		// Cosa Voglio vedere quando premo sui vari tasti?
-			//	Toast.makeText(this, menu_drawer[position] + " ï¿½ stato premuto", Toast.LENGTH_LONG).show();
+		//	Toast.makeText(this, menu_drawer[position] + " è stato premuto", Toast.LENGTH_LONG).show();
 		
 	}
 	
-	
-		
 }
 
 //creo la mia classe adapter: dovrò sovrascrivere tutti i suoi metodi; il MyAdapter si occupa della raccolta dei dati del nostro array di stringhe
 class MyAdapter extends BaseAdapter{
 
+	
+	
+	
 	private Context context;
 	String[] menu_drawer;
 	int[] valori = {R.drawable.home, R.drawable.profile, R.drawable.settings, R.drawable.sessions, R.drawable.now_session, R.drawable.info}; // array contenente le immagini
@@ -135,19 +137,23 @@ class MyAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		return menu_drawer.length;
 	}
+	
 
 	// restituisce una stringa contenente la posizione dell'oggetto (in posizione 0 abbiamo home...)
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return menu_drawer[position]; 
+		return menu_drawer[position]; 	
 	}
 
 	@Override
 	// metodo che non verrà mai utilizzato
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
+		
+		Toast.makeText(context, menu_drawer[position] +" è stato premuto",Toast.LENGTH_SHORT).show();
 		return position; 
+		
 	}
 
 	@Override
@@ -172,6 +178,6 @@ class MyAdapter extends BaseAdapter{
 		
 		
 		return row;
-	}
+	}	
 	
 }

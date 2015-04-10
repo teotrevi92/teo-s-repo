@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Prova"
+            android:label="@string/title_activity_prova" >
+        </activity>
+        <activity
+            android:name=".ProvaActivity"
+            android:label="@string/title_activity_prova" >
+        </activity>
     </application>
 
 </manifest>
