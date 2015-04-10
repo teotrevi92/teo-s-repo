@@ -1,16 +1,53 @@
 package com.example.progettoandroid;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
+	private ImageButton play;
+	//prova
+	private static TextView timerValue;
+	private long startTime = 0L;
+	private Handler customHandler = new Handler();
+	long timeInMilliseconds = 0L;
+	long timeSwapBuff = 0L;
+	long updatedTime = 0L;
+	//fine prova
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//prendo il pulsante con il suo id
+		
+		play = (ImageButton)findViewById(R.id.play);
+		play.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+				public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				// definisco l'intenzione di aprire l'Activity Session_Activity 
+				//Intent invio = new Intent(MainActivity.this, Session_Activity.class);
+				//startActivity(invio);
+				
+				startTime = SystemClock.uptimeMillis();
+				customHandler.postDelayed(updateTimerThread, 0);
+				
+			}
+		});
+		
+		
 	}
 
 	@Override
@@ -31,4 +68,28 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	private Runnable updateTimerThread = new Runnable() {
+		
+		public void run() {
+			timerValue = (TextView)findViewById(R.id.timerV);
+			timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+			
+			updatedTime = timeSwapBuff + timeInMilliseconds;
+
+			int secs = (int) (updatedTime / 1000);
+			int mins = secs / 60;
+			secs = secs % 60;
+			int milliseconds = (int) (updatedTime % 1000);
+			timerValue.setText("" + mins + ":"
+					+ String.format("%02d", secs) + ":"
+					+ String.format("%02d", milliseconds));
+			customHandler.postDelayed(this, 0);
+		}
+
+	};
+	
+	
+
 }
