@@ -118,12 +118,12 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		
 }
 
-//creo la mia classe adapter; dovrò sovrascrivere tutti i suoi metodi: il MyAdapter si occupa della raccolta dei dati del nostro array di stringhe
+//creo la mia classe adapter: dovrò sovrascrivere tutti i suoi metodi; il MyAdapter si occupa della raccolta dei dati del nostro array di stringhe
 class MyAdapter extends BaseAdapter{
 
 	private Context context;
 	String[] menu_drawer;
-	int[] valori = {R.drawable.home, R.drawable.profile, R.drawable.settings, R.drawable.sessions, R.drawable.now_session, R.drawable.info}; 
+	int[] valori = {R.drawable.home, R.drawable.profile, R.drawable.settings, R.drawable.sessions, R.drawable.now_session, R.drawable.info}; // array contenente le immagini
 	public MyAdapter(Context context) {
 		//inizializzo array
 		this.context=context;
@@ -144,9 +144,10 @@ class MyAdapter extends BaseAdapter{
 	}
 
 	@Override
+	// metodo che non verrà mai utilizzato
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return position; // non verrà mai utilizzata
+		return position; 
 	}
 
 	@Override
@@ -166,8 +167,8 @@ class MyAdapter extends BaseAdapter{
 		
 		TextView titleTextView = (TextView) row.findViewById(R.id.textView1); // collego la TextView di custom_layout
 		ImageView titleImageView = (ImageView) row.findViewById(R.id.imageView1); // collego la ImageView di custom_layout
-		titleTextView.setText(menu_drawer[position]);
-		titleImageView.setImageResource(valori[position]);
+		titleTextView.setText(menu_drawer[position]); // definisco il testo da visualizzare
+		titleImageView.setImageResource(valori[position]); //definisco le immagini da visualizzare
 		
 		
 		return row;
