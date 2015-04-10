@@ -32,5 +32,3 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 }
-
-//provo un commit sul mio branch ( sei un bel ragazzo e ti intaso il branch )
