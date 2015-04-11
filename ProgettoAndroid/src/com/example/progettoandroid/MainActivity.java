@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -19,20 +20,14 @@ public class MainActivity extends ActionBarActivity {
 	private Chronometer crono;
 	long timeWhenStopped = 0;
 	
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		//prendo i pulsanti con i loro id
-		
 		play = (ImageButton)findViewById(R.id.play);
-		pause = (ImageButton)findViewById(R.id.paus);
-		stop = (ImageButton)findViewById(R.id.stop);
-		crono = (Chronometer)findViewById(R.id.chronometer);
-		
+
 		
 		play.setOnClickListener(new View.OnClickListener() {
 			
@@ -41,47 +36,20 @@ public class MainActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				
 				// definisco l'intenzione di aprire l'Activity Session_Activity 
-				//Intent invio = new Intent(MainActivity.this, Session_Activity.class);
-				//startActivity(invio);
+				Intent invio = new Intent(MainActivity.this, Session_Activity.class);
+				invio.putExtra("play", "play"); //controllo per verificare che 
+				startActivity(invio);
+				
+				//Toast.makeText(MainActivity.this, "Sessiona già attiva", Toast.LENGTH_SHORT).show();
+
 				
 				//riparto dove ero rimasto
-				crono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-				crono.start();
+				//crono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+				//crono.start();
 				
 				
 			}
 		});
-		
-		pause.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-				public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				//memorizzo dove sono rimasto
-				timeWhenStopped = crono.getBase() - SystemClock.elapsedRealtime();
-				crono.stop();
-				
-				
-			}
-		});
-		
-		
-		stop.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-				public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				//azzero e fermo
-				crono.setBase(SystemClock.elapsedRealtime());
-				crono.stop();
-				timeWhenStopped = 0;
-				
-			}
-		});
-		
-		
 		
 		
 		

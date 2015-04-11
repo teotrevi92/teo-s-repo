@@ -35,32 +35,6 @@
         android:focusableInTouchMode="true"
         android:src="@drawable/play" />
     
-    <ImageButton
-        android:id="@+id/paus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:background="@drawable/pause"
-        android:contentDescription="@string/pause"
-        android:src="@drawable/pause" />
-    
-    <ImageButton
-        android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:background="@drawable/stop"
-        android:contentDescription="@string/stop"
-        android:src="@drawable/stop" />
 
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|bottom"
-        android:text="@string/cron"
-        android:textColor="#FFFFFF"
-        android:textSize="140sp" />
 
 </LinearLayout>
