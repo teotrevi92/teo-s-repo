@@ -14,35 +14,40 @@ import android.widget.Toast;
 
 public class Session_Activity extends ActionBarActivity {	
 	
+	//dichiarazione variabili
 	private Chronometer crono;
 	private ImageButton pause;
 	private ImageButton stop;
 	private ImageButton play;
-	long timeWhenStopped = 0;
+	long timeStop = 0;
 	Intent int1;
-	String recupero;
+	String recupero = ""; //mi serve per capire se è stato premuto il pulsante nell'activity
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_session);
 
+		//prendo i pulsanti con i loro id
 		crono = (Chronometer)findViewById(R.id.chronometer);
 		pause = (ImageButton)findViewById(R.id.pause);
 		play = (ImageButton)findViewById(R.id.play2);
 		stop = (ImageButton)findViewById(R.id.stop);
+		//recupero valore da activity
 		int1 =  getIntent();
 		recupero = int1.getStringExtra("play");
+		//stato iniziale con rispettive visibilità
 		stop.setVisibility(View.INVISIBLE);
 		play.setVisibility(View.INVISIBLE);
 		pause.setVisibility(View.VISIBLE);
 		
+		//se sono arrivato qui dal play faccio partire
 		if(recupero.equals("play")) {
 			//riparto dove ero rimasto
-			crono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+			crono.setBase(SystemClock.elapsedRealtime() + timeStop);
 			crono.start();
 		}
-		recupero = "";
+		recupero = ""; //azzero la variabile
 	
 		
 		pause.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +56,9 @@ public class Session_Activity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			
 			//memorizzo dove sono rimasto
-			timeWhenStopped = crono.getBase() - SystemClock.elapsedRealtime();
+			timeStop = crono.getBase() - SystemClock.elapsedRealtime();
 			crono.stop();
+			//cambio stato dei pulsanti
 			stop.setVisibility(View.VISIBLE);
 			play.setVisibility(View.VISIBLE);
 			pause.setVisibility(View.INVISIBLE);
@@ -67,7 +73,10 @@ public class Session_Activity extends ActionBarActivity {
 			//azzero e fermo
 			crono.setBase(SystemClock.elapsedRealtime());
 			crono.stop();
-			timeWhenStopped = 0;
+			timeStop = 0;
+			//rendo non cliccabile il pulsante play
+			play.setClickable(false);
+			//avviso interruzione registrazione
 			Toast.makeText(Session_Activity.this, "Hai interrotto la registrazione", Toast.LENGTH_SHORT).show();
 		}
 	});
@@ -79,8 +88,9 @@ public class Session_Activity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			
 			//riparto dove ero rimasto
-			crono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+			crono.setBase(SystemClock.elapsedRealtime() + timeStop);
 			crono.start();
+			//cambio stato dei pulsanti
 			stop.setVisibility(View.INVISIBLE);
 			play.setVisibility(View.INVISIBLE);
 			pause.setVisibility(View.VISIBLE);

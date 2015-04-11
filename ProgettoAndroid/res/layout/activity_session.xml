@@ -60,10 +60,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/pause"
-        android:layout_toRightOf="@+id/pause"
         android:layout_toEndOf="@+id/pause"
+        android:layout_toRightOf="@+id/pause"
         android:background="@drawable/stop"
         android:contentDescription="@string/stop"
         android:src="@drawable/stop" />
+
+    <TextView
+        android:id="@+id/textAvviso"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_below="@+id/chronometer"
+        android:layout_marginTop="33dp"
+        android:text="@string/textview"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp" />
 
 </RelativeLayout>

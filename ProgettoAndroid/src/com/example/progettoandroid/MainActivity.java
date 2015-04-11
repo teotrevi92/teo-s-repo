@@ -3,21 +3,16 @@ package com.example.progettoandroid;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-
+	
+	//dichiarazione varibili
 	private ImageButton play;
-	private ImageButton pause;
-	private ImageButton stop;
-	private Chronometer crono;
 	long timeWhenStopped = 0;
 	
 	@Override
@@ -28,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 		//prendo i pulsanti con i loro id
 		play = (ImageButton)findViewById(R.id.play);
 
-		
+		//azione del pulsante play
 		play.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -37,16 +32,11 @@ public class MainActivity extends ActionBarActivity {
 				
 				// definisco l'intenzione di aprire l'Activity Session_Activity 
 				Intent invio = new Intent(MainActivity.this, Session_Activity.class);
-				invio.putExtra("play", "play"); //controllo per verificare che 
+				invio.putExtra("play", "play"); //controllo per verifica nell'altra activity
 				startActivity(invio);
 				
 				//Toast.makeText(MainActivity.this, "Sessiona già attiva", Toast.LENGTH_SHORT).show();
-
-				
-				//riparto dove ero rimasto
-				//crono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-				//crono.start();
-				
+	
 				
 			}
 		});
