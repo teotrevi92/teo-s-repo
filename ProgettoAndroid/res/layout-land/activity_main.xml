@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2E2E2E"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.progettoandroid.MainActivity" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="500dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="@string/textview"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp" />
+
+    <ImageButton
+        android:id="@+id/play"
+        style="@drawable/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/play"
+        android:contentDescription="@string/play"
+        android:src="@drawable/play" />
+
+</RelativeLayout>

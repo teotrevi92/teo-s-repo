@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ProgettoAndroid</string>
+    <string name="app_name">Fall Detection</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open Navigation Drawer</string>
     <string name="drawer_close">Close Navigation Drawer</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="textview">TextView</string>
+    <string name="title_activity_session_">Session_Activity</string>
+    <string name="cron">Chronometer</string>
+    <string name="stop">Stop</string>
 
     <string-array name="menu_drawer">
         <item>Home</item>
@@ -19,3 +25,4 @@
     <string name="title_activity_prova">Prova</string>
 
 </resources>
+

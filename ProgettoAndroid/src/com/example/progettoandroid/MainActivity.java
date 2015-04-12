@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.widget.ImageButton;
 
 public class MainActivity extends ActionBarActivity implements OnItemClickListener {
 	
@@ -30,7 +31,10 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	//private String[] menu_drawer;
 	private ActionBarDrawerToggle drawerListner;
 	private MyAdapter myAdapter;
+	private ImageButton play;
+	long timeWhenStopped = 0;
 
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +64,30 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		drawerLayout.setDrawerListener(drawerListner);
 	//	getSupportActionBar().setHomeButtonEnabled(true); // rendo selezionabile la scritta "ProgettoAndroid"
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // ora compare la freccia <
+
+		
+		//prendo i pulsanti con i loro id
+		play = (ImageButton)findViewById(R.id.play);
+
+		//azione del pulsante play
+		play.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+				public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				// definisco l'intenzione di aprire l'Activity Session_Activity 
+				Intent invio = new Intent(MainActivity.this, Session_Activity.class);
+				invio.putExtra("play", "play"); //controllo per verifica nell'altra activity
+				startActivity(invio);
+				
+				//Toast.makeText(MainActivity.this, "Sessiona già attiva", Toast.LENGTH_SHORT).show();
+	
+				
+			}
+		});
+		
+
 		
 		
 	}
@@ -106,6 +134,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -196,3 +225,12 @@ class MyAdapter extends BaseAdapter{
 	}	
 	
 }
+
+	
+	
+	
+
+	
+	
+
+
