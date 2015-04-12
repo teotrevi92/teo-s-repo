@@ -111,7 +111,16 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		// Cosa Voglio vedere quando premo sui vari tasti?
-		//	Toast.makeText(this, menu_drawer[position] + " è stato premuto", Toast.LENGTH_LONG).show();
+		switch (position) {
+		case 0:Toast.makeText(this, " Ciao Tri ",Toast.LENGTH_SHORT).show();
+			break;
+		case 1:Toast.makeText(this, " Ciao Rach ",Toast.LENGTH_SHORT).show();
+			break;	
+		case 2:Toast.makeText(this, " Ciao Teo ",Toast.LENGTH_SHORT).show();
+			break;	
+		default: Toast.makeText(this, " Scritta Default ",Toast.LENGTH_SHORT).show();
+			break;
+		}
 		
 	}
 	
@@ -151,7 +160,6 @@ class MyAdapter extends BaseAdapter{
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		
-		Toast.makeText(context, menu_drawer[position] +" è stato premuto",Toast.LENGTH_SHORT).show();
 		return position; 
 		
 	}
