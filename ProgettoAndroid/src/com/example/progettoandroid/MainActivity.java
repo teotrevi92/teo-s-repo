@@ -45,23 +45,26 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		myAdapter = new MyAdapter(this);
 		listView=(ListView) findViewById(R.id.drawerList);
 		listView.setAdapter(myAdapter);
+		
+			
 		//listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,menu_drawer));
 		listView.setOnItemClickListener(this); 
 		drawerListner = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.menu, R.string.drawer_open, R.string.drawer_close){
 			@Override
-			// definisco cosa deve succedere quando apro il drawer: in questo caso mi segnala tramite Toast che l'ho aperto
+			// definisco cosa deve succedere quando il drawer è aperto: in questo caso mi segnala tramite Toast che l'ho aperto
 			public void onDrawerOpened(View drawerView) {
 				// TODO Auto-generated method stub
-				Toast.makeText(MainActivity.this, "Drawer aperto", Toast.LENGTH_LONG).show();
 				play.setVisibility(View.GONE);
+				Toast.makeText(MainActivity.this, "Drawer aperto", Toast.LENGTH_LONG).show();
 			
 			}
 			
 			@Override
 			public void onDrawerClosed(View drawerView) {
 				// TODO Auto-generated method stub
-				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
 				play.setVisibility(View.VISIBLE);
+				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
+				
 				
 				
 			}
