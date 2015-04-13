@@ -32,7 +32,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	private ActionBarDrawerToggle drawerListner;
 	private MyAdapter myAdapter;
 	private ImageButton play;
-	long timeWhenStopped = 0;
+	
+	
 
 		
 	@Override
@@ -52,12 +53,17 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			public void onDrawerOpened(View drawerView) {
 				// TODO Auto-generated method stub
 				Toast.makeText(MainActivity.this, "Drawer aperto", Toast.LENGTH_LONG).show();
+				play.setVisibility(View.GONE);
+			
 			}
 			
 			@Override
 			public void onDrawerClosed(View drawerView) {
 				// TODO Auto-generated method stub
 				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
+				play.setVisibility(View.VISIBLE);
+				
+				
 			}
 			
 		};
