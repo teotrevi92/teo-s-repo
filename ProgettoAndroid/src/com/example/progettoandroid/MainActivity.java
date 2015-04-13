@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -40,6 +41,9 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		
+				
 		//menu_drawer = getResources().getStringArray(R.array.menu_drawer);
 		drawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
 		myAdapter = new MyAdapter(this);
@@ -48,12 +52,24 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		//listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,menu_drawer));
 		listView.setOnItemClickListener(this); 
 		drawerListner = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.menu, R.string.drawer_open, R.string.drawer_close){
+			
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset) {
+				// TODO Auto-generated method stub
+				super.onDrawerSlide(drawerView, slideOffset);
+				//Toast.makeText(MainActivity.this, "Drawer in movimento", Toast.LENGTH_LONG).show();
+				play.setVisibility(View.GONE);
+				
+				
+				
+			}
+			
 			@Override
 			// definisco cosa deve succedere quando apro il drawer: in questo caso mi segnala tramite Toast che l'ho aperto
 			public void onDrawerOpened(View drawerView) {
 				// TODO Auto-generated method stub
 				Toast.makeText(MainActivity.this, "Drawer aperto", Toast.LENGTH_LONG).show();
-				play.setVisibility(View.GONE);
+				//play.setVisibility(View.GONE);
 			
 			}
 			
@@ -62,24 +78,26 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 				// TODO Auto-generated method stub
 				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
 				play.setVisibility(View.VISIBLE);
-				
-				
 			}
 			
+			
+			
+			
+			
+			
+			
 		};
+		
 		drawerLayout.setDrawerListener(drawerListner);
 	//	getSupportActionBar().setHomeButtonEnabled(true); // rendo selezionabile la scritta "ProgettoAndroid"
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // ora compare la freccia <
-
 		
 		//prendo i pulsanti con i loro id
 		play = (ImageButton)findViewById(R.id.play);
-
 		//azione del pulsante play
 		play.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
-				public void onClick(View v) {
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
 				// definisco l'intenzione di aprire l'Activity Session_Activity 
@@ -89,8 +107,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 				
 				//Toast.makeText(MainActivity.this, "Sessiona giÃ  attiva", Toast.LENGTH_SHORT).show();
 	
-				
-			}
+				}
 		});
 		
 
@@ -119,6 +136,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	
 	
 	
 
@@ -151,6 +170,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		 
 	    case 0:
 	    	Toast.makeText(this, "Ciao Tri", Toast.LENGTH_LONG).show();
+	    	
 	        break;
 	    case 1:
 	    	Toast.makeText(this, "Ciao Rach", Toast.LENGTH_LONG).show();
@@ -160,15 +180,16 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	        break;
 	     
 	    default: Toast.makeText(this, "Ciao Fioi", Toast.LENGTH_LONG).show();
-
-	}
+	    		 //drawerListner.onDrawerClosed(view);
+	    		 //devo trovare un metodo per chiudere, quello che serve per chiudere, questo sopra dice solo cosa fa quando Ã¨ chiuso, ma devo chouderlo
+	
 			
 		
 	}
 	
 }
 
-//creo la mia classe adapter: dovrò sovrascrivere tutti i suoi metodi; il MyAdapter si occupa della raccolta dei dati del nostro array di stringhe
+//creo la mia classe adapter: dovrÃ  sovrascrivere tutti i suoi metodi; il MyAdapter si occupa della raccolta dei dati del nostro array di stringhe
 class MyAdapter extends BaseAdapter{
 
 	
@@ -198,7 +219,7 @@ class MyAdapter extends BaseAdapter{
 	}
 
 	@Override
-	// metodo che non verrà mai utilizzato
+	// metodo che non verrï¿½ mai utilizzato
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		
@@ -206,32 +227,32 @@ class MyAdapter extends BaseAdapter{
 		
 	}
 
-	@Override
-	// questo è il metodo più importante: tramite posizione setta ogni riga mettendo immagine e scritta associata
-	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		View row = null;
-		if(convertView==null)
-		{
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); // l'inflating instanzia un oggetto da una risorsa xml
-			row = inflater.inflate(R.layout.custom_layout, parent,false);
-		}
-		else
-		{
-			row = convertView;
-		}
-		
-		TextView titleTextView = (TextView) row.findViewById(R.id.textView1); // collego la TextView di custom_layout
-		ImageView titleImageView = (ImageView) row.findViewById(R.id.imageView1); // collego la ImageView di custom_layout
-		titleTextView.setText(menu_drawer[position]); // definisco il testo da visualizzare
-		titleImageView.setImageResource(valori[position]); //definisco le immagini da visualizzare
-		
-		
-		return row;
-	}	
+		@Override
+		// questo ï¿½ il metodo piï¿½ importante: tramite posizione setta ogni riga mettendo immagine e scritta associata
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			View row = null;
+			if(convertView==null)
+			{
+				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); // l'inflating instanzia un oggetto da una risorsa xml
+				row = inflater.inflate(R.layout.custom_layout, parent,false);
+			}
+			else
+			{
+				row = convertView;
+			}
+			
+			TextView titleTextView = (TextView) row.findViewById(R.id.textView1); // collego la TextView di custom_layout
+			ImageView titleImageView = (ImageView) row.findViewById(R.id.imageView1); // collego la ImageView di custom_layout
+			titleTextView.setText(menu_drawer[position]); // definisco il testo da visualizzare
+			titleImageView.setImageResource(valori[position]); //definisco le immagini da visualizzare
+			
+			
+			return row;
+		}	
 	
+	}
 }
-
 	
 	
 	
