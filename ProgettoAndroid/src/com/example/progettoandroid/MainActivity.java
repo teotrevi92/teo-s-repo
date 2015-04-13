@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -32,6 +33,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	private ActionBarDrawerToggle drawerListner;
 	private MyAdapter myAdapter;
 	private ImageButton play;
+	
 	
 	
 
@@ -63,7 +65,10 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			public void onDrawerClosed(View drawerView) {
 				// TODO Auto-generated method stub
 				play.setVisibility(View.VISIBLE);
+				play.setClickable(true);
 				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
+				
+				
 				
 				
 				
@@ -154,6 +159,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		 
 	    case 0:
 	    	Toast.makeText(this, "Ciao Tri", Toast.LENGTH_LONG).show();
+	    	
 	        break;
 	    case 1:
 	    	Toast.makeText(this, "Ciao Rach", Toast.LENGTH_LONG).show();
@@ -163,6 +169,8 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	        break;
 	     
 	    default: Toast.makeText(this, "Ciao Fioi", Toast.LENGTH_LONG).show();
+	    	
+	    		
 
 	}
 			
