@@ -226,7 +226,7 @@ class MyAdapter extends BaseAdapter{
 		return position; 
 		
 	}
-//sa
+
 		@Override
 		// questo ? il metodo pi? importante: tramite posizione setta ogni riga mettendo immagine e scritta associata
 		public View getView(int position, View convertView, ViewGroup parent) {
