@@ -33,14 +33,13 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	private ActionBarDrawerToggle drawerListner;
 	private MyAdapter myAdapter;
 	private ImageButton play;
-	
-	
 
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		
 		
 				
@@ -69,7 +68,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 			public void onDrawerOpened(View drawerView) {
 				// TODO Auto-generated method stub
 				Toast.makeText(MainActivity.this, "Drawer aperto", Toast.LENGTH_LONG).show();
-				//play.setVisibility(View.GONE);
+				play.setVisibility(View.GONE);
 			
 			}
 			
@@ -79,7 +78,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
 				play.setVisibility(View.VISIBLE);
 			}
-			
 			
 			
 			
@@ -180,6 +178,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	        break;
 	     
 	    default: Toast.makeText(this, "Ciao Fioi", Toast.LENGTH_LONG).show();
+	    		 
 	    		 //drawerListner.onDrawerClosed(view);
 	    		 //devo trovare un metodo per chiudere, quello che serve per chiudere, questo sopra dice solo cosa fa quando è chiuso, ma devo chouderlo
 	

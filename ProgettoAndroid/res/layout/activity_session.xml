@@ -26,10 +26,11 @@
         style="@drawable/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center|bottom"
         android:adjustViewBounds="true"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/play"
         android:contentDescription="@string/play"
         android:src="@drawable/play" />
@@ -53,6 +54,7 @@
         android:layout_alignStart="@+id/play2"
         android:layout_alignTop="@+id/play2"
         android:adjustViewBounds="true"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/pause"
         android:contentDescription="@string/pause"
         android:src="@drawable/pause" />
