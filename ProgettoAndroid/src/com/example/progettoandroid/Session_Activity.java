@@ -21,7 +21,7 @@ public class Session_Activity extends ActionBarActivity {
 	private ImageButton play;
 	long timeStop = 0;
 	Intent int1;
-	String recupero = ""; //mi serve per capire se è stato premuto il pulsante nell'activity
+	String recupero = ""; //mi serve per capire se e' stato premuto il pulsante nell'activity
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class Session_Activity extends ActionBarActivity {
 		//recupero valore da activity
 		int1 =  getIntent();
 		recupero = int1.getStringExtra("play");
-		//stato iniziale con rispettive visibilità
+		//stato iniziale con rispettive visibilita'
 		stop.setVisibility(View.INVISIBLE);
 		play.setVisibility(View.INVISIBLE);
 		pause.setVisibility(View.VISIBLE);
@@ -49,6 +49,15 @@ public class Session_Activity extends ActionBarActivity {
 		}
 		recupero = ""; //azzero la variabile
 	
+		
+		if (savedInstanceState != null)
+		 {
+			 Long crnValue = savedInstanceState.getLong("crnValue");
+			 if (crnValue != null) crono.setBase(SystemClock.elapsedRealtime()+crnValue);
+			 		
+		 } 
+		
+		
 		
 		pause.setOnClickListener(new View.OnClickListener() {
 		@Override
@@ -100,6 +109,23 @@ public class Session_Activity extends ActionBarActivity {
 		
 	
 	}
+	
+	//salvo qui i dati per la rotazione
+		public void onSaveInstanceState(Bundle savedInstanceState)
+		{
+		// NOTE: with the implementation of this method inherited from
+		// Activity, some widgets save their state in the bundle by default.
+		// Once the user interface contains AT LEAST one non-autosaving
+		// element, you should provide a custom implementation of
+		// the method
+
+			long crn = crono.getBase() - SystemClock.elapsedRealtime();
+			savedInstanceState.putLong("crnValue", crn);
+
+			super.onSaveInstanceState(savedInstanceState);
+		}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
