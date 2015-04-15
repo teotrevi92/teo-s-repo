@@ -3,13 +3,14 @@ package com.example.progettoandroid;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class ResumeActivity extends ActionBarActivity {
 
-	long timePassato = 0;
+	long timePassato;
 	Intent intent;
 	
 	@Override
@@ -19,9 +20,10 @@ public class ResumeActivity extends ActionBarActivity {
 		
 		//riprendo i dati
 		intent = getIntent();
-		timePassato = intent.getLongExtra("timer", 0);
+		timePassato = (intent.getLongExtra("timer", 0));
+			
 		//ora stampo il resoconto
-		String testo =""+timePassato; //bisogna trasformarlo qui in min e sec
+		String testo ="The end " + timePassato; //bisogna trasformarlo qui in min e sec
 		TextView reso = (TextView) findViewById(R.id.resoconto);
 		reso.setText(testo);
 		

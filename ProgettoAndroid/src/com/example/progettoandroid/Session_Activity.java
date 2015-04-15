@@ -31,7 +31,6 @@ public class Session_Activity extends ActionBarActivity {
 		play.setVisibility(View.VISIBLE);
 		pause.setVisibility(View.INVISIBLE);
 	}
-	
 	private void inPlay()
 	{
 		stop.setVisibility(View.INVISIBLE);
@@ -73,10 +72,10 @@ public class Session_Activity extends ActionBarActivity {
 					//riparto dove ero rimasto
 					crono.setBase(SystemClock.elapsedRealtime() + timeStop);
 					crono.start();
-					inPlay();
+					inPlay(); //metodo creato prima per visualizzare i tasti giusti
 				}
 				else //altrimenti lascio in pausa e vaccio vedere i tasti del Pause
-					inPause();
+					inPause();//metodo creato prima per visualizzare i tasti giusti
 
 		
 		pause.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +88,7 @@ public class Session_Activity extends ActionBarActivity {
 			crono.stop();
 			recupero = "pause"; //lo tengo presente per l'eventualita' che venga girato lo schermo
 			//cambio stato dei pulsanti
-			inPause();
+			inPause(); //metodo creato prima per visualizzare i tasti giusti
 		}
 	});
 	
@@ -98,22 +97,14 @@ public class Session_Activity extends ActionBarActivity {
 			public void onClick(View v) {
 			// TODO Auto-generated method stub
 			
-		/*	//azzero e fermo
-			crono.setBase(SystemClock.elapsedRealtime());
-			crono.stop();
-			recupero = "stop";
-			timeStop = 0;
-			//rendo non cliccabile il pulsante play
-			play.setClickable(false);
-			//avviso interruzione registrazione
-			Toast.makeText(Session_Activity.this, "Hai interrotto la registrazione", Toast.LENGTH_SHORT).show();
-		*/
+		
 			//memorizzo dove sono rimasto
 			timeStop = crono.getBase() - SystemClock.elapsedRealtime();
 			crono.stop();
 			// definisco l'intenzione di aprire l'Activity Session_Activity 
 			Intent invio = new Intent(Session_Activity.this, ResumeActivity.class);
-			invio.putExtra("timer", timeStop); //controllo per verifica nell'altra activity
+			long timer = crono.getBase(); //negativo per rimettere il segno positivo
+			invio.putExtra("timer", timer); //controllo per verifica nell'altra activity
 			startActivity(invio);	
 			
 			//chiudo l'activity
@@ -136,7 +127,7 @@ public class Session_Activity extends ActionBarActivity {
 			crono.start();
 			recupero ="play";	
 			//cambio stato dei pulsanti
-			inPlay();
+			inPlay(); //metodo creato prima per visualizzare i tasti giusti
 		}
 	});
 	
