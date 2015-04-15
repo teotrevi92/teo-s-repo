@@ -98,7 +98,7 @@ public class Session_Activity extends ActionBarActivity {
 			public void onClick(View v) {
 			// TODO Auto-generated method stub
 			
-			//azzero e fermo
+		/*	//azzero e fermo
 			crono.setBase(SystemClock.elapsedRealtime());
 			crono.stop();
 			recupero = "stop";
@@ -107,6 +107,21 @@ public class Session_Activity extends ActionBarActivity {
 			play.setClickable(false);
 			//avviso interruzione registrazione
 			Toast.makeText(Session_Activity.this, "Hai interrotto la registrazione", Toast.LENGTH_SHORT).show();
+		*/
+			//memorizzo dove sono rimasto
+			timeStop = crono.getBase() - SystemClock.elapsedRealtime();
+			crono.stop();
+			// definisco l'intenzione di aprire l'Activity Session_Activity 
+			Intent invio = new Intent(Session_Activity.this, ResumeActivity.class);
+			invio.putExtra("timer", timeStop); //controllo per verifica nell'altra activity
+			startActivity(invio);	
+			
+			//chiudo l'activity
+			Intent inten = new Intent();
+			setResult(RESULT_OK, inten);
+			finish();
+			
+			
 		}
 	});
 	
