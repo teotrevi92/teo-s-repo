@@ -31,7 +31,8 @@
         android:layout_marginEnd="23dp"
         android:background="@drawable/stop"
         android:contentDescription="@string/stop"
-        android:src="@drawable/stop" />
+        android:src="@drawable/stop"
+        android:visibility="invisible" />
 
     <Chronometer
         android:id="@+id/chronometer"
@@ -57,7 +58,8 @@
         android:adjustViewBounds="true"
         android:background="@drawable/play"
         android:contentDescription="@string/play"
-        android:src="@drawable/play" />
+        android:src="@drawable/play"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/pause"

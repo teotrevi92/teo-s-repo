@@ -19,9 +19,26 @@ public class Session_Activity extends ActionBarActivity {
 	private ImageButton pause;
 	private ImageButton stop;
 	private ImageButton play;
+	boolean stato = false;
 	long timeStop = 0;
 	Intent int1;
 	String recupero = ""; //mi serve per capire se e' stato premuto il pulsante nell'activity
+	
+	//metodi per queado sono in pausa e quando sono in Play
+	private void inPause()
+	{
+		stop.setVisibility(View.VISIBLE);
+		play.setVisibility(View.VISIBLE);
+		pause.setVisibility(View.INVISIBLE);
+	}
+	
+	private void inPlay()
+	{
+		stop.setVisibility(View.INVISIBLE);
+		play.setVisibility(View.INVISIBLE);
+		pause.setVisibility(View.VISIBLE);
+	}
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,28 +53,31 @@ public class Session_Activity extends ActionBarActivity {
 		//recupero valore da activity
 		int1 =  getIntent();
 		recupero = int1.getStringExtra("play");
-		//stato iniziale con rispettive visibilita'
-		stop.setVisibility(View.INVISIBLE);
-		play.setVisibility(View.INVISIBLE);
-		pause.setVisibility(View.VISIBLE);
-		
-		//se sono arrivato qui dal play faccio partire
-		if(recupero.equals("play")) {
-			//riparto dove ero rimasto
-			crono.setBase(SystemClock.elapsedRealtime() + timeStop);
-			crono.start();
-		}
-		recupero = ""; //azzero la variabile
-	
-		
+
+		//Ricerco i dati se salvati, quando giro lo schermo
 		if (savedInstanceState != null)
 		 {
 			 Long crnValue = savedInstanceState.getLong("crnValue");
-			 if (crnValue != null) crono.setBase(SystemClock.elapsedRealtime()+crnValue);
-			 		
+			 String rnValue = savedInstanceState.getString("rnValue").toString();
+			 if (crnValue != null) 
+			 {
+				 	//crono.setBase(SystemClock.elapsedRealtime()+crnValue);
+				 timeStop = crnValue;
+				 crono.setBase(SystemClock.elapsedRealtime() + timeStop);
+				 recupero = rnValue;
+			 } 
 		 } 
 		
-		
+		//se sono arrivato qui e c'era play continuo e faccio start
+				if(recupero.equals("play")) {
+					//riparto dove ero rimasto
+					crono.setBase(SystemClock.elapsedRealtime() + timeStop);
+					crono.start();
+					inPlay();
+				}
+				else //altrimenti lascio in pausa e vaccio vedere i tasti del Pause
+					inPause();
+
 		
 		pause.setOnClickListener(new View.OnClickListener() {
 		@Override
@@ -67,10 +87,9 @@ public class Session_Activity extends ActionBarActivity {
 			//memorizzo dove sono rimasto
 			timeStop = crono.getBase() - SystemClock.elapsedRealtime();
 			crono.stop();
+			recupero = "pause"; //lo tengo presente per l'eventualita' che venga girato lo schermo
 			//cambio stato dei pulsanti
-			stop.setVisibility(View.VISIBLE);
-			play.setVisibility(View.VISIBLE);
-			pause.setVisibility(View.INVISIBLE);
+			inPause();
 		}
 	});
 	
@@ -82,6 +101,7 @@ public class Session_Activity extends ActionBarActivity {
 			//azzero e fermo
 			crono.setBase(SystemClock.elapsedRealtime());
 			crono.stop();
+			recupero = "stop";
 			timeStop = 0;
 			//rendo non cliccabile il pulsante play
 			play.setClickable(false);
@@ -99,10 +119,9 @@ public class Session_Activity extends ActionBarActivity {
 			//riparto dove ero rimasto
 			crono.setBase(SystemClock.elapsedRealtime() + timeStop);
 			crono.start();
+			recupero ="play";	
 			//cambio stato dei pulsanti
-			stop.setVisibility(View.INVISIBLE);
-			play.setVisibility(View.INVISIBLE);
-			pause.setVisibility(View.VISIBLE);
+			inPlay();
 		}
 	});
 	
@@ -119,9 +138,17 @@ public class Session_Activity extends ActionBarActivity {
 		// element, you should provide a custom implementation of
 		// the method
 
-			long crn = crono.getBase() - SystemClock.elapsedRealtime();
+			long crn=0;
+			if (recupero.equals("play")) //se e' attivo salvo l'ultimo cronometro
+				crn = crono.getBase() - SystemClock.elapsedRealtime();
+			else
+				crn = timeStop;//altrimenti se e' in pausa o stop tengo l'ultimo salvato
+			
 			savedInstanceState.putLong("crnValue", crn);
-
+			String rn = recupero;
+			savedInstanceState.putString("rnValue", rn);
+			
+			
 			super.onSaveInstanceState(savedInstanceState);
 		}
 	
