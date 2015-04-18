@@ -1,253 +1,242 @@
 package com.example.progettoandroid;
 
-
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.DrawerListener;
+import com.example.progettoandroid.classi.NsMenuAdapter;
+import com.example.progettoandroid.classi.NsMenuItemModel;
 import android.support.v7.app.ActionBarActivity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SlidingDrawer.OnDrawerCloseListener;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
-public class MainActivity extends ActionBarActivity implements OnItemClickListener {
-	
-	private DrawerLayout drawerLayout;
-	private ListView listView;
-	//private String[] menu_drawer;
-	private ActionBarDrawerToggle drawerListner;
-	private MyAdapter myAdapter;
+public class MainActivity extends ActionBarActivity {
+
+	private ListView mDrawerList;
+	private DrawerLayout mDrawer;
+	private CustomActionBarDrawerToggle mDrawerToggle;
+	private String[] menuItems;
+
+	private FragmentTransaction fragmentTransaction;
+	private FragmentManager fragmentManager;
+
 	private ImageButton play;
-	
-	
-	
 
-		
+	//stato
+	//@Override
+	//protected void onSaveInstanceState(Bundle outState) {
+	//super.onSaveInstanceState(outState);
+	//	outState.putInt("tab", getSupportActionBar().getSelectedNavigationIndex());
+	//}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		//menu_drawer = getResources().getStringArray(R.array.menu_drawer);
-		drawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
-		myAdapter = new MyAdapter(this);
-		listView=(ListView) findViewById(R.id.drawerList);
-		listView.setAdapter(myAdapter);
+		setContentView(R.layout.activity_main_drawer);
 		
-			
-		//listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,menu_drawer));
-		listView.setOnItemClickListener(this); 
-		drawerListner = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.menu, R.string.drawer_open, R.string.drawer_close){
-			@Override
-			// definisco cosa deve succedere quando il drawer è aperto: in questo caso mi segnala tramite Toast che l'ho aperto
-			public void onDrawerOpened(View drawerView) {
-				// TODO Auto-generated method stub
-				play.setVisibility(View.GONE);
-				Toast.makeText(MainActivity.this, "Drawer aperto", Toast.LENGTH_LONG).show();
-			
-			}
-			
-			@Override
-			public void onDrawerClosed(View drawerView) {
-				// TODO Auto-generated method stub
-				play.setVisibility(View.VISIBLE);
-				play.setClickable(true);
-				Toast.makeText(MainActivity.this, "Drawer chiuso", Toast.LENGTH_LONG).show();
-				
-				
-				
-				
-				
-			}
-			
-		};
-		drawerLayout.setDrawerListener(drawerListner);
-	//	getSupportActionBar().setHomeButtonEnabled(true); // rendo selezionabile la scritta "ProgettoAndroid"
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true); // ora compare la freccia <
+		fragmentManager = getSupportFragmentManager();
+		fragmentTransaction = fragmentManager.beginTransaction();
+		if (savedInstanceState == null)
+		{
+			//apre in automatico questa activity quando avvio l'app
+			HomeFragment ls_fragment = new HomeFragment();
+			fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment);
+			//mi serve per metterlo nello stack per il pulsante indietro
+			fragmentTransaction.addToBackStack(null);
+			fragmentTransaction.commit();
+			fragmentTransaction = fragmentManager.beginTransaction();
+		}
 
-		
-		//prendo i pulsanti con i loro id
-		play = (ImageButton)findViewById(R.id.play);
+		/*utilizzo un metodo di supporto di appcompact, e agisco il pulsante 
+		  dell'action bar per fare in modo che azioni il drawer*/
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 
-		//azione del pulsante play
-		play.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-				public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				// definisco l'intenzione di aprire l'Activity Session_Activity 
-				Intent invio = new Intent(MainActivity.this, Session_Activity.class);
-				invio.putExtra("play", "play"); //controllo per verifica nell'altra activity
-				startActivity(invio);
-				
-				//Toast.makeText(MainActivity.this, "Sessiona giÃ  attiva", Toast.LENGTH_SHORT).show();
-	
-				
-			}
-		});
-		
+		mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-		
-		
+		//imposto come l'ombra del drawer quando lo apro
+		mDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+		_initMenu();
+		mDrawerToggle = new CustomActionBarDrawerToggle(this, mDrawer);
+		mDrawer.setDrawerListener(mDrawerToggle);
+
+		//fragment
+		Configuration config = getResources().getConfiguration();
+
+
 	}
-	
-	// informa il sistema che ci possono essere dei cambiamenti come ad es la rotazione dello schermo
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-		drawerListner.onConfigurationChanged(newConfig);
+
+	private void _initMenu() {
+		NsMenuAdapter mAdapter = new NsMenuAdapter(this);
+
+		// Aggiungo l'header
+		mAdapter.addHeader(R.string.ns_menu);
+
+		// Aggiungo il primo blocco
+
+		menuItems = getResources().getStringArray(
+				R.array.ns_menu_items);
+		String[] menuItemsIcon = getResources().getStringArray(
+				R.array.ns_menu_items_icon);
+
+		int res = 0;
+		for (String item : menuItems) {
+
+			int id_title = getResources().getIdentifier(item, "string",
+					this.getPackageName());
+			int id_icon = getResources().getIdentifier(menuItemsIcon[res],
+					"drawable", this.getPackageName());
+
+			NsMenuItemModel mItem = new NsMenuItemModel(id_title, id_icon);
+			//potrei eliminarlo, lo tengo, in caso lo canello, Ã¨ il numeretto blu
+			//if (res==1) mItem.counter=12; //it is just an example...
+			//if (res==3) mItem.counter=3; //it is just an example...
+			mAdapter.addItem(mItem);
+			res++;
+		}
+
+
+		mDrawerList = (ListView) findViewById(R.id.drawer);
+		if (mDrawerList != null)
+			mDrawerList.setAdapter(mAdapter);
+
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
 	}
-	
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onPostCreate(savedInstanceState);
-		drawerListner.syncState(); //appare la classica icona del drawer
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	
 
 	@Override
-	
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	/* Called whenever we call invalidateOptionsMenu() */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// If the nav drawer is open, hide action items related to the content view
+		boolean drawerOpen = mDrawer.isDrawerOpen(mDrawerList);
+		menu.findItem(R.id.action_save).setVisible(!drawerOpen);
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		// definisco tutte le operazioni che andrï¿½ a fare nel tasto menï¿½
-		if(drawerListner.onOptionsItemSelected(item))
-		{
+		/*
+		 * The action bar home/up should open or close the drawer.
+		 * ActionBarDrawerToggle will take care of this.
+		 */
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+
+		// Handle your other action bar items...
 		return super.onOptionsItemSelected(item);
 	}
 
+	private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle {
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
-		// Cosa Voglio vedere quando premo sui vari tasti?
-		
-		switch(position) {
-		 
-	    case 0:
-	    	Toast.makeText(this, "Ciao Tri", Toast.LENGTH_LONG).show();
-	    	
-	        break;
-	    case 1:
-	    	Toast.makeText(this, "Ciao Rach", Toast.LENGTH_LONG).show();
-	        break;    
-	    case 2:
-	    	Toast.makeText(this, "Ciao Teo", Toast.LENGTH_LONG).show();
-	        break;
-	     
-	    default: Toast.makeText(this, "Ciao Fioi", Toast.LENGTH_LONG).show();
-	    	
-	    		
-
-	}
-			
-		
-	}
-	
-}
-
-//creo la mia classe adapter: dovrò sovrascrivere tutti i suoi metodi; il MyAdapter si occupa della raccolta dei dati del nostro array di stringhe
-class MyAdapter extends BaseAdapter{
-
-	
-	
-	
-	private Context context;
-	String[] menu_drawer;
-	int[] valori = {R.drawable.home, R.drawable.profile, R.drawable.settings, R.drawable.sessions, R.drawable.now_session, R.drawable.info}; // array contenente le immagini
-	public MyAdapter(Context context) {
-		//inizializzo array
-		this.context=context;
-		menu_drawer= context.getResources().getStringArray(R.array.menu_drawer);
-	}
-	@Override
-	// ritorna il numero di elemente contenuti nell'array 
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return menu_drawer.length;
-	}
-	
-
-	// restituisce una stringa contenente la posizione dell'oggetto (in posizione 0 abbiamo home...)
-	@Override
-	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return menu_drawer[position]; 	
-	}
-
-	@Override
-	// metodo che non verrà mai utilizzato
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		
-		return position; 
-		
-	}
-
-	@Override
-	// questo è il metodo più importante: tramite posizione setta ogni riga mettendo immagine e scritta associata
-	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		View row = null;
-		if(convertView==null)
-		{
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); // l'inflating instanzia un oggetto da una risorsa xml
-			row = inflater.inflate(R.layout.custom_layout, parent,false);
+		public CustomActionBarDrawerToggle(Activity mActivity,DrawerLayout mDrawerLayout){
+			super(
+					mActivity,
+					mDrawerLayout, 
+					R.drawable.ic_drawer,
+					R.string.ns_menu_bar, 
+					R.string.ns_menu_bar);
 		}
-		else
-		{
-			row = convertView;
+
+		@Override
+		public void onDrawerClosed(View view) {
+			getSupportActionBar().setTitle(getString(R.string.ns_menu_bar));
+			ActivityCompat.invalidateOptionsMenu(MainActivity.this); // creates call to onPrepareOptionsMenu()
 		}
-		
-		TextView titleTextView = (TextView) row.findViewById(R.id.textView1); // collego la TextView di custom_layout
-		ImageView titleImageView = (ImageView) row.findViewById(R.id.imageView1); // collego la ImageView di custom_layout
-		titleTextView.setText(menu_drawer[position]); // definisco il testo da visualizzare
-		titleImageView.setImageResource(valori[position]); //definisco le immagini da visualizzare
-		
-		
-		return row;
-	}	
-	
+
+		@Override
+		public void onDrawerOpened(View drawerView) {
+			getSupportActionBar().setTitle(getString(R.string.ns_menu_bar));
+			ActivityCompat.invalidateOptionsMenu(MainActivity.this); // creates call to onPrepareOptionsMenu()
+		}
+	}
+
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// Highlight the selected item, update the title, and close the drawer
+			// update selected item and title, then close the drawer
+			mDrawerList.setItemChecked(position, true);
+			String text= "menu click... should be implemented";
+			Toast.makeText(MainActivity.this, text , Toast.LENGTH_LONG).show();
+
+
+			switch (position) {
+			case 1:
+				HomeFragment ls_fragment1 = new HomeFragment();
+				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment1);
+				fragmentTransaction.commit();
+				//ricreo l'oggetto per nuova futura Transaction
+				fragmentTransaction = fragmentManager.beginTransaction();
+				//mi serve per metterlo nello stack per il pulsante indietro
+				fragmentTransaction.addToBackStack(null);
+				mDrawer.closeDrawer(mDrawerList);
+				break;
+			case 2:
+				SessionFragment ls_fragment2 = new SessionFragment();
+				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment2);
+				//passaggio di paremetri
+				Bundle args=new Bundle();
+				args.putString("play", "");
+				ls_fragment2.setArguments(args);
+				//mi serve per metterlo nello stack per il pulsante indietro
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+				//ricreo l'oggetto per nuova futura Transaction
+				fragmentTransaction = fragmentManager.beginTransaction();
+				mDrawer.closeDrawer(mDrawerList);
+				break;
+
+			default:
+				//You should reset item counter
+
+				mDrawer.closeDrawer(mDrawerList);
+
+				break;
+			}
+
+
+		}
+
+	}
+
+
 }
-
-	
-	
-	
-
-	
-	
-
-

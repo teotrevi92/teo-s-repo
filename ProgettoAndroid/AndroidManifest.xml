@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.progettoandroid"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="2.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="22" />
 
     <application
         android:allowBackup="true"
@@ -22,19 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Prova"
-            android:label="@string/title_activity_prova" >
-        </activity>
-         <activity
-            android:name=".Session_Activity"
-            android:label="@string/title_activity_session_" >
-        </activity>
-        <activity
-            android:name=".ProvaActivity"
-            android:label="@string/title_activity_prova" >
-        </activity>
     </application>
 
 </manifest>
-

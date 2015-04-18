@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ns_menu_items">
+        <item>ns_menu_1</item>
+        <item>ns_menu_2</item>
+        <item>ns_menu_3</item>
+        <item>ns_menu_4</item>
+        <item>ns_menu_5</item>
+        <item>ns_menu_6</item>
+    </string-array>
+
+    <array name="ns_menu_items_icon">
+        <item>home</item>
+        <item>current_session</item>
+        <item>sessions</item>
+        <item>profile</item>
+        <item>settings</item>
+        <item>info</item>
+    </array>
+
+</resources>

@@ -4,6 +4,13 @@
     tools:context="com.example.progettoandroid.MainActivity" >
 
     <item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_save"
+        android:title="@string/action_save"/>
+    
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
