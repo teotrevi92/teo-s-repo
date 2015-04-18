@@ -135,6 +135,11 @@ public class SessionFragment extends Fragment{
 				Bundle args=new Bundle();
 				args.putLong("timer", timer);
 				ls_fragment.setArguments(args);
+
+				fragmentManager.popBackStack(); //viene tolto dallo stack questo fragment
+
+				
+				
 				//mi serve per metterlo nello stack per il pulsante indietro
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
