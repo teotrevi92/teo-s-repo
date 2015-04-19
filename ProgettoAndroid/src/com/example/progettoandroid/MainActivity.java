@@ -1,4 +1,3 @@
-//provo a pushare il mio branch
 package com.example.progettoandroid;
 
 import com.example.progettoandroid.classi.NsMenuAdapter;
