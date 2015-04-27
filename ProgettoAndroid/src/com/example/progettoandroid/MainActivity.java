@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
@@ -198,7 +199,6 @@ public class MainActivity extends ActionBarActivity {
 			String text= "menu click... should be implemented";
 			Toast.makeText(MainActivity.this, text , Toast.LENGTH_LONG).show();
 
-
 			switch (position) {
 			case 1:
 				HomeFragment ls_fragment1 = new HomeFragment();
@@ -220,10 +220,27 @@ public class MainActivity extends ActionBarActivity {
 				//mi serve per metterlo nello stack per il pulsante indietro
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
+				
 				//ricreo l'oggetto per nuova futura Transaction
 				fragmentTransaction = fragmentManager.beginTransaction();
+				
 				mDrawer.closeDrawer(mDrawerList);
 				break;
+			case 3:
+				RiepilogoSessioniFragment fr = new RiepilogoSessioniFragment();
+				fragmentTransaction.replace(R.id.frag_show_activity, fr);
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+				
+				//ricreo l'oggetto per nuova futura Transaction
+				fragmentTransaction = fragmentManager.beginTransaction();
+				
+				//mi serve per metterlo nello stack per il pulsante indietro
+				mDrawer.closeDrawer(mDrawerList);
+				/*Intent intent = new Intent(MainActivity.this,RiepilogoSessioni.class);
+				startActivity(intent); */
+				
+				
 
 			default:
 				//You should reset item counter
