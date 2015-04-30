@@ -213,33 +213,34 @@ public class MainActivity extends ActionBarActivity {
 			case 2:
 				SessionFragment ls_fragment2 = new SessionFragment();
 				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment2);
+				fragmentTransaction.commit();
 				//passaggio di paremetri
 				Bundle args=new Bundle();
 				args.putString("play", "");
 				ls_fragment2.setArguments(args);
-				//mi serve per metterlo nello stack per il pulsante indietro
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-				
-				//ricreo l'oggetto per nuova futura Transaction
 				fragmentTransaction = fragmentManager.beginTransaction();
-				
+				//mi serve per metterlo nello stack per il pulsante indietro
+				fragmentTransaction.addToBackStack(null);				
 				mDrawer.closeDrawer(mDrawerList);
 				break;
+				
 			case 3:
-				RiepilogoSessioniFragment fr = new RiepilogoSessioniFragment();
-				fragmentTransaction.replace(R.id.frag_show_activity, fr);
-				fragmentTransaction.addToBackStack(null);
+				RiepilogoSessioniFragment ls_fragment3 = new RiepilogoSessioniFragment();
+				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment3);
 				fragmentTransaction.commit();
+				fragmentTransaction = fragmentManager.beginTransaction();
+				fragmentTransaction.addToBackStack(null);
+				
 				
 				//ricreo l'oggetto per nuova futura Transaction
-				fragmentTransaction = fragmentManager.beginTransaction();
+				
 				
 				//mi serve per metterlo nello stack per il pulsante indietro
 				mDrawer.closeDrawer(mDrawerList);
 				/*Intent intent = new Intent(MainActivity.this,RiepilogoSessioni.class);
 				startActivity(intent); */
 				
+				break;
 				
 
 			default:
