@@ -24,5 +24,6 @@
     <string name="title_activity_resume_activiti">ResumeActiviti</string>
     <string name="title_activity_resume">ResumeActivity</string>
     <string name="title_activity_riepilogo_sessioni">RiepilogoSessioni</string>
+    <string name="title_ListActivity2">ListActivity2</string>
 
 </resources>

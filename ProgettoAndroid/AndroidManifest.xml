@@ -23,8 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RiepilogoSessioni"
-            android:label="@string/title_activity_riepilogo_sessioni" >
+            android:name=".ListActivity2"
+            android:label="@string/title_ListActivity2"
+            >
         </activity>
     </application>
 
