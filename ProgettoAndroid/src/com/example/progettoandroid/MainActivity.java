@@ -225,20 +225,14 @@ public class MainActivity extends ActionBarActivity {
 				break;
 				
 			case 3:
-//				RiepilogoSessioniFragment ls_fragment3 = new RiepilogoSessioniFragment();
-//				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment3);
-//				fragmentTransaction.commit();
-//				fragmentTransaction = fragmentManager.beginTransaction();
-//				fragmentTransaction.addToBackStack(null);
-				
-				
-				//ricreo l'oggetto per nuova futura Transaction
-				
-				
-				//mi serve per metterlo nello stack per il pulsante indietro
-			//	mDrawer.closeDrawer(mDrawerList);
-				Intent intent = new Intent(MainActivity.this,ListActivity2.class);
-				startActivity(intent); 
+				FragmentListView2 ls_fragment3 = new FragmentListView2();
+				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment3);
+				fragmentTransaction.commit();
+				fragmentTransaction = fragmentManager.beginTransaction();
+				fragmentTransaction.addToBackStack(null);
+				mDrawer.closeDrawer(mDrawerList);
+			//	Intent intent = new Intent(MainActivity.this,ListActivity2.class);
+			//	startActivity(intent); 
 				
 				break;
 				

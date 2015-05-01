@@ -1,4 +1,8 @@
-package com.example.progettoandroid;
+package com.example.progettoandroid.classi;
+
+import com.example.progettoandroid.R;
+import com.example.progettoandroid.R.id;
+import com.example.progettoandroid.R.layout;
 
 import android.app.Activity;
 import android.content.Context;

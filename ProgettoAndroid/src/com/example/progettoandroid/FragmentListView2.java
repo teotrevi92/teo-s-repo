@@ -1,48 +1,58 @@
 package com.example.progettoandroid;
 
+import com.example.progettoandroid.classi.ListHelper;
+import com.example.progettoandroid.classi.MyObj;
+import com.example.progettoandroid.classi.ViewHolderAdapter;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 
-public class ListActivity2 extends ListActivity {
-	
+public class FragmentListView2 extends ListFragment {
 	
 	private ArrayAdapter<MyObj> adapter;
 	MyObj obj;
+	private Activity activity;
+	
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setListAdapter(ListHelper.buildViewHolderAdapter(this,
+	public void onAttach(Activity a){
+		super.onAttach(a);
+		activity = a;
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view = inflater.inflate(R.layout.activity_riepilogo_sessioni, container, false);
+		return view;
+	
+	}
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		setListAdapter(ListHelper.buildViewHolderAdapter(activity,
 				R.layout.list_item));
-		// Show the Up button in the action bar.
-		setupActionBar();
 		adapter = (ViewHolderAdapter) getListView().getAdapter();
 		registerForContextMenu(getListView());
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
-	private void setupActionBar() {
-
-	//	getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		// TODO Auto-generated method stub
 		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = activity.getMenuInflater();
 		inflater.inflate(R.menu.main_context_menu,menu);
 	}
 	
@@ -60,12 +70,12 @@ public class ListActivity2 extends ListActivity {
 			adapter.notifyDataSetChanged();
 			return true;
 		case R.id.mod_id:
-			Toast.makeText(this, "Da implementare la modifica", Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, "Da implementare la modifica", Toast.LENGTH_SHORT).show();
 //			arrayList.set(info.position,setItem);
 //			adapter.notifyDataSetChanged();
 			return true;
 		case R.id.other_id:
-			Toast.makeText(this, "Da implementare altre opzioni", Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, "Da implementare altre opzioni", Toast.LENGTH_SHORT).show();
 			return true;
 		default:
 			return super.onContextItemSelected(item);
@@ -75,20 +85,4 @@ public class ListActivity2 extends ListActivity {
 	
 	
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }

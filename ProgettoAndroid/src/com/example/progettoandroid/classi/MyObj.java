@@ -1,4 +1,4 @@
-package com.example.progettoandroid;
+package com.example.progettoandroid.classi;
 
 public class MyObj {
 
