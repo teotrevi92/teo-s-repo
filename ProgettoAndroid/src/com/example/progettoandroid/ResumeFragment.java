@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 public class ResumeFragment extends Fragment{
 	
-	long timePassato;
 	//Intent intent;
 	int mNum;
 
@@ -29,10 +28,10 @@ public class ResumeFragment extends Fragment{
 		//riprendo i dati
 		//intent = this.getActivity().getIntent();
 		//timePassato = (intent.getLongExtra("timer", 0));
-		timePassato = getArguments().getLong("timer");
-
+		String strTem = getArguments().getString("timer");
+		
 		//ora stampo il resoconto
-		String testo ="The end " + timePassato; //bisogna trasformarlo qui in min e sec
+		String testo ="The end " + strTem; //bisogna trasformarlo qui in min e sec
 		TextView reso = (TextView) view.findViewById(R.id.resoconto);
 		reso.setText(testo);
 

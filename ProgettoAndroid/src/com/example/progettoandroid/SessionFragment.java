@@ -27,6 +27,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.format.DateFormat;
 import android.widget.ImageButton;
 
 public class SessionFragment extends Fragment{
@@ -36,7 +37,6 @@ public class SessionFragment extends Fragment{
 	private ImageButton pause;
 	private ImageButton stop;
 	private ImageButton play;
-	boolean stato = false;
 	long timeStop = 0;
 	//Intent int1;
 	String recupero = ""; //mi serve per capire se e' stato premuto il pulsante nell'activity
@@ -121,11 +121,9 @@ public class SessionFragment extends Fragment{
 				//memorizzo dove sono rimasto
 				timeStop = crono.getBase() - SystemClock.elapsedRealtime();
 				crono.stop();
-				// definisco l'intenzione di aprire l'Activity Session_Activity 
-				long timer = crono.getBase(); //negativo per rimettere il segno positivo
-				//Intent invio = new Intent(getActivity(), ResumeFragment.class);
-				//invio.putExtra("timer", timer); //controllo per verifica nell'altra activity
-				//startActivity(invio);	
+				//salvo  il cronometro in stringa
+				String strtempo = crono.getText().toString();
+				
 
 				fragmentManager = getFragmentManager();
 				fragmentTransaction = fragmentManager.beginTransaction();
@@ -133,7 +131,7 @@ public class SessionFragment extends Fragment{
 				fragmentTransaction.replace(R.id.frag_show_activity, ls_fragment);
 				//passaggio di paremetri
 				Bundle args=new Bundle();
-				args.putLong("timer", timer);
+				args.putString("timer", strtempo);
 				ls_fragment.setArguments(args);
 
 				fragmentManager.popBackStack(); //viene tolto dallo stack questo fragment
